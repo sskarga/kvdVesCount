@@ -1,0 +1,23 @@
+﻿<settings>
+
+<calibration factor="1,00" passageTime="7,35"/>
+
+<connection>
+	<serverProgId>arOPC.arOpcServer.1</serverProgId>
+	<updateRate>50</updateRate>
+	<tagWeight>shm2010.in.weight</tagWeight>
+	<tagStatus>shm2010.in.status</tagStatus>
+</connection>
+
+<shifts>
+	<shift id="1" timeHourStart="07" timeHourEnd="19"/>
+	<shift id="2" timeHourStart="19" timeHourEnd="07"/>
+</shifts>
+
+<resources>
+	<resource id="01" name="Ракушка №1"/>
+	<resource id="02" name="Ракушка №2"/>
+	<resource id="03" name="Ракушка №3"/>
+</resources>
+
+</settings>

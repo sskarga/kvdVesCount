@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<setting>
+	<calibration factor="1" passageTime="7,35"/>
+	
+	<connection>
+		<serverProgId>arOPC.arOpcServer.1</serverProgId>
+		<updateRate>50</updateRate>
+		<tagWeight>shm2010.in.weight</tagWeight>
+		<tagStatus>shm2010.in.status</tagStatus>
+		<tagConnected>smh2010.System.Connected</tagConnected>
+	</connection>
+	
+	<resources>
+		<resource id="1" name="Ракушка №1"/>
+		<resource id="2" name="Ракушка №2"/>
+		<resource id="3" name="Ракушка №3"/>
+	</resources>
+	
+	<shifts>
+		<shift id="1" timeHourStart="7" timeHourEnd="19"/>
+		<shift id="2" timeHourStart="19" timeHourEnd="7"/>
+	</shifts>
+</setting>
