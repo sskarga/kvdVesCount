@@ -9,7 +9,7 @@ uses
   Dialogs, ActnMan, ActnColorMaps, XPMan, StdCtrls, Menus, ExtCtrls,
   ComCtrls, TeEngine, Series, TeeProcs, Chart, DateUtils, UWeight, TLoggerUnit,
   TConfiguratorUnit, ActiveX, xmldom, XMLIntf, msxmldom, XMLDoc, UConfig,
-  prOpcClient, UChangeResource, frxCross, frxClass;
+  prOpcClient, UChangeResource, ToolWin, ActnList, StdActns;
 
 type
   TMainForm = class(TForm)
@@ -39,6 +39,13 @@ type
     spl2: TSplitter;
     lblStatus: TLabel;
     lblResourceName: TLabel;
+    ToolBar1: TToolBar;
+    N4: TMenuItem;
+    N5: TMenuItem;
+    N6: TMenuItem;
+    N7: TMenuItem;
+    ActionList: TActionList;
+    FileExit1: TFileExit;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -47,6 +54,7 @@ type
       NewTimestamp: TDateTime);
     procedure lblResourceNameDblClick(Sender: TObject);
     procedure lblWeightResourceDblClick(Sender: TObject);
+    procedure N3Click(Sender: TObject);
   private
     { Private declarations }
     procedure LiveChartInit();
@@ -99,6 +107,8 @@ var
 //------------------------------------------------------------------------------
 
 {$R *.dfm}
+
+uses UReport;
 
 // Version
 function GetMyVersion:string;
@@ -202,8 +212,15 @@ procedure TMainForm.UpdateViewWeight();
 begin
   lblShift.Caption := IntToStr(curConfig.shiftId+1);
   lblResourceName.Caption := '  ' + curConfig.weightNames[curWeightData.curIDResurce-1];
-  lblWeightResource.Caption := FloatToStrF(curWeightData.weight[curConfig.shiftId, curWeightData.curIDResurce] -  WeightReset, ffNumber, 8, 1) + '  ';
-  lblWeightAll.Caption := FloatToStrF(curWeightData.weight[curConfig.shiftId, 0], ffNumber, 8, 1);
+  lblWeightResource.Caption := FloatToStrF(
+        (
+         curWeightData.weight[curConfig.shiftId, curWeightData.curIDResurce] -  WeightReset
+        ) * curWeightData.factor,
+        ffNumber, 8, 1) + '  ';
+
+  lblWeightAll.Caption := FloatToStrF(
+         curWeightData.weight[curConfig.shiftId, 0] * curWeightData.factor,
+         ffNumber, 8, 1);
 end;
 
 procedure TMainForm.OpcSimpleClient1Groups0DataChange(Sender: TOpcGroup;
@@ -390,5 +407,10 @@ begin
 
 end;
 
+
+procedure TMainForm.N3Click(Sender: TObject);
+begin
+  FormReport.ShowModal;
+end;
 
 end.

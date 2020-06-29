@@ -19,7 +19,7 @@ object MainForm: TMainForm
   TextHeight = 13
   object pnlTop: TPanel
     Left = 0
-    Top = 0
+    Top = 29
     Width = 1113
     Height = 113
     Align = alTop
@@ -292,9 +292,9 @@ object MainForm: TMainForm
   end
   object Panel1: TPanel
     Left = 0
-    Top = 113
+    Top = 142
     Width = 1113
-    Height = 399
+    Height = 370
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 5
@@ -303,7 +303,7 @@ object MainForm: TMainForm
       Left = 5
       Top = 5
       Width = 1103
-      Height = 389
+      Height = 360
       AllowPanning = pmNone
       Border.Color = clGray
       Border.Visible = True
@@ -371,6 +371,14 @@ object MainForm: TMainForm
       end
     end
   end
+  object ToolBar1: TToolBar
+    Left = 0
+    Top = 0
+    Width = 1113
+    Height = 29
+    Caption = 'ToolBar1'
+    TabOrder = 5
+  end
   object XPManifest: TXPManifest
     Left = 1064
     Top = 112
@@ -380,12 +388,25 @@ object MainForm: TMainForm
     Top = 152
     object N1: TMenuItem
       Caption = #1060#1072#1081#1083
+      object N4: TMenuItem
+        Caption = #1054#1090#1095#1077#1090
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object N6: TMenuItem
+        Action = FileExit1
+      end
     end
     object N2: TMenuItem
       Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1072
+      object N7: TMenuItem
+        Caption = #1058#1072#1088#1080#1088#1086#1074#1082#1072
+      end
     end
     object N3: TMenuItem
       Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
+      OnClick = N3Click
     end
   end
   object Timer1: TTimer
@@ -407,5 +428,15 @@ object MainForm: TMainForm
     ConnectIOPCShutdown = True
     Left = 317
     Top = 29
+  end
+  object ActionList: TActionList
+    Left = 547
+    Top = 106
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = #1042#1099#1093#1086#1076
+      Hint = 'Exit|Quits the application'
+      ImageIndex = 43
+    end
   end
 end

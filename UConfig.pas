@@ -471,10 +471,14 @@ begin
 
       node := XML.DocumentElement.ChildNodes['shifts'];
 
+      SetLength(data.weight, node.ChildNodes.Count);
+
       for i:= 0 to node.ChildNodes.Count - 1 do
       begin
          chNode := node.ChildNodes[i];
          dshift := StrToInt(chNode.Attributes['id']) - 1;
+
+         SetLength(data.weight[i], chNode.ChildNodes.Count);
 
          for j:= 0 to chNode.ChildNodes.Count - 1 do
          begin
