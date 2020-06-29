@@ -4,7 +4,7 @@ unit UWeight;
                                interface
 //------------------------------------------------------------------------------
 
-uses Windows, USWMRGuard, Math;
+uses Windows, USWMRGuard;
 
 type
   TEventWeightChange = procedure(weight: Double);
@@ -17,28 +17,29 @@ type
     _period : Cardinal;
     _weight : Double;
 
-    lastUpdate: Cardinal;
+    lastUpdate: TDateTime;
 
     function GetWeight(): Double;
   public
-    constructor Create(periodUpdate: Single; eventChange: TEventWeightChange; weight: Double = 0);
+    constructor Create(periodUpdate: Single; eventChange: TEventWeightChange);
     destructor Destroy overload;
     property  Weight: Double read GetWeight;
-    procedure PeriodSetWeight(weight: Double);
-    procedure Reset();
+    procedure PeriodSetWeight(weight: Double; TimeStamp: TDateTime);
   end;
 
 //------------------------------------------------------------------------------
                              implementation
 //------------------------------------------------------------------------------
 
-constructor TCountWeight.Create(periodUpdate: Single; eventChange: TEventWeightChange; weight: Double = 0);
+uses DateUtils, Math, SysUtils;
+
+constructor TCountWeight.Create(periodUpdate: Single; eventChange: TEventWeightChange);
 begin
   Self.wrLock := TSingleWriterMultipleReaderGuard.Create;
   Self.callBackEventChange := eventChange;
   Self._period := Round(periodUpdate * 1000);
-  Self._weight := weight;
-  lastUpdate:= GetTickCount;
+  Self._weight := 0;
+  lastUpdate:= Now;
 end;
 
 destructor TCountWeight.Destroy;
@@ -54,41 +55,33 @@ begin
   wrLock.Done;
 end;
 
-procedure  TCountWeight.PeriodSetWeight(weight: Double);
+procedure TCountWeight.PeriodSetWeight(weight: Double; TimeStamp: TDateTime);
 var
   duration: Cardinal;
   duration_err: Cardinal;
   cor_weight: Double;
   weightCount : Double;
 begin
-  duration := GetTickCount - lastUpdate;
+  duration := MilliSecondsBetween(TimeStamp, lastUpdate);
   if duration >= Self._period then
   begin
-    if (weight > 0) then
+    lastUpdate:= TimeStamp;
+
+    if (weight > 0) and (duration < (Self._period * 1.5)) then
     begin
       duration_err := duration - Round(Self._period);
       cor_weight:=RoundTo( weight/(duration/duration_err), -2);
 
       wrLock.WaitToWrite;
-      Self._weight := RoundTo(_weight + weight + cor_weight, -2);
+      Self._weight := RoundTo(weight + cor_weight, -2);
       weightCount := Self._weight;
       wrLock.Done;
+
+      Self.callBackEventChange(weightCount);
     end;
 
-    lastUpdate:= GetTickCount;
-    Self.callBackEventChange(weightCount);
   end;
 end;
-
-procedure TCountWeight.Reset();
-begin
-  wrLock.WaitToWrite;
-  Self._weight := 0;
-  wrLock.Done;
-  lastUpdate:= GetTickCount;
-end;
-
-
 
 
 end.

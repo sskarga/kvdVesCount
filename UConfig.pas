@@ -14,6 +14,14 @@ type
     endHour : Word;     // конец смены - часы
   end;
 
+// Данные о весе
+type
+  RDataWeight = record
+    curIDResurce: integer;  // Текущий ресурс id
+    factor : Double;  // Коэф.
+    weight: array of array of Double;  // Массив весов [IDСмена - 1, IDРесурс], [IDСмена - 1, 0] - Вес за смену
+  end;
+
 // конфигурация
 type
   RConfig = record
@@ -24,23 +32,21 @@ type
     OPCUpdateRate: Integer;      // Частота опроса данных
     OPCTagWeight: string;        // имя тега - веса
     OPCTagStatus: string;        // имя тега - статуса
-    OPCTagConnected: string;     // имя тега - устройство подключено
 
-    weightNames: array of string;  // Список ресурсов
-    workShifts: array of RShifts;  // Список смен
+    weightNames: array of string;  // Список ресурсов id - 1
+    workShifts: array of RShifts;  // Список смен     id - 1
 
     // для обновления информации вызвать - changeShift(RConfig)
     shiftDate: TDateTime; // Дата смены
-    shiftId: Byte;        // Номер смены
+    shiftId: Byte;        // Номер смены  id - 1
   end;
-
 
 // интерфейс получения и сохранения конфигурации
 type
   IConfig = interface(IInterface)
     // Методы
     function Save(conf: RConfig): Boolean;
-    function Load(conf: RConfig): Boolean;
+    function Load(var conf: RConfig): Boolean;
     function GetFileName(): string;
     // Свойства
     property fileName: string read GetFileName;
@@ -63,11 +69,41 @@ type
     function Save(conf: RConfig): Boolean; overload;
     function Save(conf: RConfig; filename: string): Boolean; overload;
 
-    function Load(conf: RConfig): Boolean; overload;
-    function Load(conf: RConfig; filename: string): Boolean; overload;
+    function Load(var conf: RConfig): Boolean; overload;
+    function Load(var conf: RConfig; filename: string): Boolean; overload;
   end;
 
-function changeShift(conf: RConfig): Boolean;
+function changeShift(var conf: RConfig): Boolean; // get current shift
+
+// интерфейс получения и сохранения конфигурации
+type
+  IDataWeight = interface(IInterface)
+    // Методы
+    function Save(Date: TDateTime; data: RDataWeight): Boolean;
+    function Load(Date: TDateTime; var data: RDataWeight): Boolean;
+  end;
+
+type
+  TFileDataWeight = class(TInterfacedObject, IDataWeight)
+  private
+    function GetFileName(date: TDateTime): string;
+  public
+    function Save(Date: TDateTime; data: RDataWeight): Boolean;
+    function Load(Date: TDateTime; var data: RDataWeight): Boolean;
+  end;
+
+type
+  TXMLDataWeight = class(TInterfacedObject, IDataWeight)
+  private
+    function GetFileName(date: TDateTime): string;
+  public
+    function Save(Date: TDateTime; data: RDataWeight): Boolean;
+    function Load(Date: TDateTime; var data: RDataWeight): Boolean;
+  end;
+
+var
+  curIDResurce: integer;
+  arrWeight: array of array of Double; // Массив весов [IDСмена - 1, IDРесурс], [IDСмена - 1, 0] - Вес за смену
 
 //------------------------------------------------------------------------------
                                 implementation
@@ -88,12 +124,12 @@ begin
 end;
 
 
-function TXMLConfig.Load(conf: RConfig): Boolean;
+function TXMLConfig.Load(var conf: RConfig): Boolean;
 begin
   Result := self.Load(conf, Self.fileName);
 end;
 
-function TXMLConfig.Load(conf: RConfig; filename: string): Boolean;
+function TXMLConfig.Load(var conf: RConfig; filename: string): Boolean;
 var
   XMLConfig: IXMLDocument;
   i: Integer;
@@ -119,7 +155,6 @@ begin
         conf.OPCUpdateRate:= StrToInt(node.ChildNodes['updateRate'].text);
         conf.OPCTagWeight := Trim(node.ChildNodes['tagWeight'].text);
         conf.OPCTagStatus := Trim(node.ChildNodes['tagStatus'].text);
-        conf.OPCTagConnected := Trim(node.ChildNodes['tagConnected'].text);
 
         node := xmlConfig.DocumentElement.ChildNodes['resources'];
         SetLength(conf.weightNames, node.ChildNodes.Count);
@@ -187,7 +222,6 @@ begin
       node.ChildNodes['updateRate'].text := IntToStr(conf.OPCUpdateRate);
       node.ChildNodes['tagWeight'].text := conf.OPCTagWeight;
       node.ChildNodes['tagStatus'].text := conf.OPCTagStatus;
-      node.ChildNodes['tagConnected'].text := conf.OPCTagConnected;
 
       node := root.AddChild('resources');
 
@@ -217,7 +251,7 @@ begin
 
 end;
 
-function changeShift(conf: RConfig): Boolean;
+function changeShift(var conf: RConfig): Boolean;
 var
   i : Integer;
   Y, M, D, H, Min, Sec, MilSec: Word;
@@ -262,6 +296,199 @@ begin
 
       Break;
     end;
+
+  end;
+
+end;
+
+function TFileDataWeight.GetFileName(date: TDateTime): string;
+const
+  path = 'data';
+var
+  dir : string;
+  Y, M, D, H, Min, Sec, MilSec: Word;
+
+  day: string;
+  mounth: string;
+begin
+  dir := path;  // GetCurrentDir
+  DecodeDateTime(date, Y, M, D, H, Min, Sec, MilSec);
+
+  day := Format('%.2d',[D]);
+  mounth := Format('%.2d',[M]);
+
+  if not DirectoryExists(dir) then
+    MkDir(dir);
+
+  dir := dir + '/' + IntToStr(Y) + '-' + mounth;
+
+  if not DirectoryExists(dir) then
+    MkDir(dir);
+
+  Result := dir + '/' + IntToStr(Y) + '-' + mounth + '-' + day + '.dat';
+end;
+
+function TFileDataWeight.Save(Date: TDateTime; data: RDataWeight): Boolean;
+var
+  Stream: TStream;
+begin
+  Result := False;
+
+  Stream:= TFileStream.Create(Self.GetFileName(Date), fmCreate);
+  try
+    Stream.WriteBuffer(data, SizeOf(data));
+    Result := True;
+  finally
+    Stream.Free;
+  end;
+
+end;
+
+function TFileDataWeight.Load(Date: TDateTime; var data: RDataWeight): Boolean;
+var
+  Stream: TStream;
+  fileName: string;
+begin
+  Result := False;
+
+  fileName := Self.GetFileName(Date);
+
+  if FileExists(fileName) then
+  begin
+
+    Stream:= TFileStream.Create(fileName, fmOpenRead or fmShareDenyWrite);
+    try
+      Stream.ReadBuffer(data, SizeOf(data));
+      Result := True;
+    finally
+      Stream.Free;
+    end;
+
+  end;
+
+end;
+
+
+function TXMLDataWeight.GetFileName(date: TDateTime): string;
+const
+  path = 'data';
+var
+  dir : string;
+  Y, M, D, H, Min, Sec, MilSec: Word;
+
+  day: string;
+  mounth: string;
+begin
+  dir := path;  // GetCurrentDir
+  DecodeDateTime(date, Y, M, D, H, Min, Sec, MilSec);
+
+  day := Format('%.2d',[D]);
+  mounth := Format('%.2d',[M]);
+
+  if not DirectoryExists(dir) then
+    MkDir(dir);
+
+  dir := dir + '/' + IntToStr(Y) + '-' + mounth;
+
+  if not DirectoryExists(dir) then
+    MkDir(dir);
+
+  Result := dir + '/' + IntToStr(Y) + '-' + mounth + '-' + day + '.xml';
+end;
+
+function TXMLDataWeight.Save(Date: TDateTime; data: RDataWeight): Boolean;
+var
+  Xml: IXMLDocument;
+  i, j: Integer;
+  root, node, chNode, resNode: ixmlnode;
+begin
+  Result := False;
+  Xml := TXMLDocument.Create(nil);
+
+    try
+      Xml.Active := True;
+      Xml.Version := '1.0';
+      Xml.Encoding := 'windows-1251';
+
+      root:=Xml.ChildNodes['report'];
+
+      root.AddChild('update').Text := DateTimeToStr(Now);
+
+      node := root.ChildNodes['calibration'];
+      node.Attributes['factor'] := FloatToStr(data.factor);
+
+      node := root.ChildNodes['curResource'];
+      node.Attributes['id'] := FloatToStr(data.curIDResurce);
+
+      node := root.AddChild('shifts');
+
+      for i:= 0 to Length(data.weight) - 1 do
+      begin
+         chNode := node.AddChild('shift');
+         chNode.Attributes['id'] := IntToStr(i+1);
+
+         for j:= 0 to Length(data.weight[i]) - 1 do
+         begin
+           resNode := chNode.AddChild('resource');
+           resNode.Attributes['id'] := IntToStr(j);
+           resNode.Attributes['weight'] := FloatToStr(data.weight[i,j]);
+         end;
+      end;
+
+      Xml.SaveToFile(Self.GetFileName(Date));
+
+      Result:= True;
+    finally
+      Xml.Active := False;
+    end
+end;
+
+function TXMLDataWeight.Load(Date: TDateTime; var data: RDataWeight): Boolean;
+var
+  fileName: string;
+  Xml: IXMLDocument;
+  i, j, dshift, dres: Integer;
+  root, node, chNode, resNode: ixmlnode;
+begin
+  Result := False;
+
+  fileName := Self.GetFileName(Date);
+
+  if FileExists(fileName) then
+  begin
+
+    Xml := TXMLDocument.Create(nil);
+
+    try
+      XML.LoadFromFile(filename);
+      XML.Active:= True;
+
+      node := XML.DocumentElement.ChildNodes['calibration'];
+      data.factor := StrToFloat(node.Attributes['factor']);
+
+      node := XML.DocumentElement.ChildNodes['curResource'];
+      data.curIDResurce := StrToInt(node.Attributes['id']);
+
+      node := XML.DocumentElement.ChildNodes['shifts'];
+
+      for i:= 0 to node.ChildNodes.Count - 1 do
+      begin
+         chNode := node.ChildNodes[i];
+         dshift := StrToInt(chNode.Attributes['id']) - 1;
+
+         for j:= 0 to chNode.ChildNodes.Count - 1 do
+         begin
+           resNode := chNode.ChildNodes[j];
+           dres := StrToInt(resNode.Attributes['id']);
+           data.weight[dshift, dres] := StrToFloat(resNode.Attributes['weight']);
+         end;
+      end;
+
+      Result:= True;
+    finally
+      XML.Active:=False;
+    end;
+
 
   end;
 

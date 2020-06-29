@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 657
-  Top = 94
+  Left = 453
+  Top = 226
   Width = 1121
   Height = 841
   Caption = #1059#1095#1077#1090' '#1089#1084#1077#1089#1080
@@ -20,26 +20,33 @@ object MainForm: TMainForm
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 1105
+    Width = 1113
     Height = 113
     Align = alTop
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 0
     object spl1: TSplitter
-      Left = 846
+      Left = 848
       Top = 5
       Width = 10
       Height = 103
       Align = alRight
     end
-    object GroupBox1: TGroupBox
-      Left = 856
+    object spl2: TSplitter
+      Left = 105
       Top = 5
-      Width = 244
+      Width = 10
+      Height = 103
+    end
+    object GroupBox1: TGroupBox
+      Left = 858
+      Top = 5
+      Width = 250
       Height = 103
       Align = alRight
-      Caption = #1042#1077#1089' '#1089#1084#1077#1089#1080' '#1079#1072' '#1089#1084#1077#1085#1091', '#1090'.:'
+      Caption = #1042#1077#1089' '#1089#1084#1077#1089#1080' '#1079#1072' '#1089#1084#1077#1085#1091', '#1082#1075'.:'
+      Constraints.MinWidth = 250
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -47,15 +54,15 @@ object MainForm: TMainForm
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      object lbAllWeight: TLabel
+      object lblWeightAll: TLabel
         Left = 2
         Top = 21
-        Width = 240
+        Width = 246
         Height = 80
         Align = alClient
         Alignment = taCenter
         AutoSize = False
-        Caption = '38,000'
+        Caption = '0'
         Constraints.MaxWidth = 300
         Constraints.MinWidth = 240
         Font.Charset = RUSSIAN_CHARSET
@@ -68,12 +75,12 @@ object MainForm: TMainForm
       end
     end
     object GroupBox2: TGroupBox
-      Left = 5
+      Left = 115
       Top = 5
-      Width = 841
+      Width = 733
       Height = 103
       Align = alClient
-      Caption = #1042#1077#1089' '#1089#1084#1077#1089#1080', '#1090'.'
+      Caption = #1042#1077#1089' '#1089#1084#1077#1089#1080', '#1082#1075'.'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -81,14 +88,14 @@ object MainForm: TMainForm
       Font.Style = []
       ParentFont = False
       TabOrder = 1
-      object Label2: TLabel
-        Left = 589
+      object lblWeightResource: TLabel
+        Left = 481
         Top = 21
         Width = 250
         Height = 80
         Align = alRight
-        Alignment = taCenter
-        Caption = '38.000.12'
+        Alignment = taRightJustify
+        Caption = '0 '
         Constraints.MaxWidth = 250
         Constraints.MinWidth = 250
         Font.Charset = DEFAULT_CHARSET
@@ -98,46 +105,99 @@ object MainForm: TMainForm
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
+        OnDblClick = lblWeightResourceDblClick
       end
-      object Label3: TLabel
+      object lblResourceName: TLabel
         Left = 2
         Top = 21
-        Width = 587
+        Width = 479
         Height = 80
         Align = alClient
-        Caption = ' '#1056#1072#1082#1091#1096#1082#1072' '#8470'1'
+        Caption = ' --'
         Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -27
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+        OnDblClick = lblResourceNameDblClick
+      end
+    end
+    object grp1: TGroupBox
+      Left = 5
+      Top = 5
+      Width = 100
+      Height = 103
+      Align = alLeft
+      Caption = #1057#1084#1077#1085#1072
+      Constraints.MaxWidth = 100
+      Constraints.MinWidth = 100
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      object lblShift: TLabel
+        Left = 2
+        Top = 21
+        Width = 96
+        Height = 80
+        Align = alClient
+        Alignment = taCenter
+        Caption = '-'
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -27
         Font.Name = 'Arial'
         Font.Style = []
         ParentFont = False
         Layout = tlCenter
-        WordWrap = True
       end
     end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 763
-    Width = 1105
+    Top = 771
+    Width = 1113
     Height = 19
     Panels = <>
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 728
-    Width = 1105
-    Height = 35
+    Top = 712
+    Width = 1113
+    Height = 59
     Align = alBottom
     BevelOuter = bvNone
     BorderWidth = 10
     TabOrder = 2
+    object lblStatus: TLabel
+      Left = 10
+      Top = 10
+      Width = 1093
+      Height = 39
+      Align = alClient
+      Alignment = taCenter
+      Caption = '---'
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      Layout = tlCenter
+    end
   end
   object pnlChartShift: TPanel
     Left = 0
-    Top = 528
-    Width = 1105
+    Top = 512
+    Width = 1113
     Height = 200
     Align = alBottom
     BevelOuter = bvNone
@@ -146,7 +206,7 @@ object MainForm: TMainForm
     object chtSheft: TChart
       Left = 5
       Top = 5
-      Width = 1095
+      Width = 1103
       Height = 190
       AllowPanning = pmNone
       Border.Color = clGray
@@ -168,12 +228,21 @@ object MainForm: TMainForm
       BottomAxis.Automatic = False
       BottomAxis.AutomaticMaximum = False
       BottomAxis.AutomaticMinimum = False
+      BottomAxis.DateTimeFormat = 'hh:mm'
+      BottomAxis.ExactDateTime = False
+      BottomAxis.Increment = 0.006944444444444444
       BottomAxis.LabelsSeparation = 50
-      BottomAxis.Maximum = 44008.000000000000000000
-      BottomAxis.Minimum = 43984.000000000000000000
+      BottomAxis.Maximum = 44028.000000000000000000
+      BottomAxis.MaximumOffset = 5
+      BottomAxis.MaximumRound = True
+      BottomAxis.Minimum = 44004.000000000000000000
+      BottomAxis.MinimumOffset = 5
+      BottomAxis.MinimumRound = True
       LeftAxis.Automatic = False
+      LeftAxis.AutomaticMaximum = False
       LeftAxis.AutomaticMinimum = False
       LeftAxis.AxisValuesFormat = '0'
+      LeftAxis.Maximum = 200.000000000000000000
       LeftAxis.MaximumOffset = 1
       LeftAxis.MaximumRound = True
       LeftAxis.Title.Caption = #1042#1077#1089', '#1082#1075
@@ -196,7 +265,7 @@ object MainForm: TMainForm
         15
         42)
       ColorPaletteIndex = 13
-      object arsrsSeries1: TAreaSeries
+      object arsrsSeriesShift: TAreaSeries
         Gradient.Balance = 70
         Gradient.Direction = gdBottomTop
         Gradient.EndColor = 16744448
@@ -205,6 +274,7 @@ object MainForm: TMainForm
         Marks.Arrow.Visible = True
         Marks.Callout.Brush.Color = clBlack
         Marks.Callout.Arrow.Visible = True
+        Marks.Shadow.Color = 8816262
         Marks.Visible = False
         ShowInLegend = False
         Dark3D = False
@@ -223,8 +293,8 @@ object MainForm: TMainForm
   object Panel1: TPanel
     Left = 0
     Top = 113
-    Width = 1105
-    Height = 415
+    Width = 1113
+    Height = 399
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 5
@@ -232,8 +302,8 @@ object MainForm: TMainForm
     object chtLive: TChart
       Left = 5
       Top = 5
-      Width = 1095
-      Height = 405
+      Width = 1103
+      Height = 389
       AllowPanning = pmNone
       Border.Color = clGray
       Border.Visible = True
@@ -255,8 +325,10 @@ object MainForm: TMainForm
       BottomAxis.LabelsMultiLine = True
       BottomAxis.LabelsSeparation = 100
       LeftAxis.Automatic = False
+      LeftAxis.AutomaticMaximum = False
       LeftAxis.AutomaticMinimum = False
       LeftAxis.AxisValuesFormat = '0'
+      LeftAxis.Maximum = 200.000000000000000000
       LeftAxis.MaximumRound = True
       LeftAxis.Title.Caption = #1042#1077#1089', '#1082#1075
       LeftAxis.Title.Font.Height = -13
@@ -279,15 +351,6 @@ object MainForm: TMainForm
         15
         31)
       ColorPaletteIndex = 13
-      object Memo1: TMemo
-        Left = 136
-        Top = 152
-        Width = 569
-        Height = 193
-        Lines.Strings = (
-          'Memo1')
-        TabOrder = 0
-      end
       object arsrsMain: TFastLineSeries
         Marks.Arrow.Visible = True
         Marks.Callout.Brush.Color = clBlack
@@ -326,29 +389,23 @@ object MainForm: TMainForm
     end
   end
   object Timer1: TTimer
-    Enabled = False
-    Interval = 7350
+    Interval = 30000
     OnTimer = Timer1Timer
-    Left = 341
-    Top = 69
-  end
-  object XMLConfig: TXMLDocument
-    Left = 480
-    Top = 48
-    DOMVendorDesc = 'MSXML'
+    Left = 397
+    Top = 29
   end
   object OpcSimpleClient: TOpcSimpleClient
     Groups = <
       item
         LocaleID = 2048
-        UpdateRate = 50
+        UpdateRate = 0
         Active = True
         OnDataChange = OpcSimpleClient1Groups0DataChange
       end>
     ProgID = 'arOPC.arOpcServer.1'
     SortedItemLists = False
     ConnectIOPCShutdown = True
-    Left = 269
-    Top = 77
+    Left = 317
+    Top = 29
   end
 end

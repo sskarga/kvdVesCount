@@ -124,10 +124,19 @@ DLL=0
 Locale=1049
 CodePage=1251
 [Version Info Keys]
+CompanyName=
+FileDescription=
 FileVersion=1.0.0.1
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
 [Excluded Packages]
-C:\Program Files\FastReports\FastReport 4\LibD7\dclfstee7.bpl=FastScript 1.9 Tee Components
-C:\Program Files\FastReports\FastReport 4\LibD7\dclfrxtee7.bpl=FastReport 4.0 Tee Components
+c:\program files (x86)\borland\delphi7\Bin\dcldss70.bpl=Borland Decision Cube Components
+C:\Program Files (x86)\FastReports\FastReport 4\LibD7\dclfstee7.bpl=FastScript 1.9 Tee Components
+C:\Program Files (x86)\FastReports\FastReport 4\LibD7\dclfrxtee7.bpl=FastReport 4.0 Tee Components
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
