@@ -1,0 +1,594 @@
+object FormSetting: TFormSetting
+  Left = 752
+  Top = 212
+  Width = 494
+  Height = 457
+  BorderIcons = [biSystemMenu]
+  Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Icon.Data = {
+    0000010001001010000001002000680400001600000028000000100000002000
+    0000010020000000000000040000000000000000000000000000000000000000
+    0000000000000000002300000033000000330000002200000000000000000000
+    000000000000000000000000000000000022000000330000003300000023BA86
+    1D00BA861D00A97919C0C18B26FFBF8A23FFA87918BD00000021757985007579
+    8500C1881600BC871D0000000022A77819BDC08B22FFC18C25FFA97919C0C592
+    3000C4912F00C28E2AFFEEBB68FFE8AF4FFFD1972DFFAA7812B9000000217178
+    8A00C088180000000023A67819B9D0952BFFE7AB49FFEDB862FFC28E29FFC594
+    3200C4933100C18E2AFFFFF2D2FFE9B55EFFE7AC4BFFD6982EFFAA7712B90000
+    0021BD871A00AF7E19B8D3982DFFE6A946FFE8B359FFFFF6D3FFC18E2AFFBB86
+    1C00BA851B00B78217ACCF9E42FFFFEFCCFFEEC477FFE6AC4BFFD5982FFFA777
+    16B50000002EA7750FADE9AA43FFE9B257FFFFF3CEFFD5A654FFB78217ACC086
+    1400BE861600BC851800B78113A7DBAC56FFFFEECBFFE8B45DFFE7AD4BFFD698
+    2DFF9C772BEDA1A8B8E9D9B77FFFFFF4CBFFDCAC55FFB68114A8BB851B008A8D
+    9600868A9800C2860F00BE851300B78010A6E0B569FFFFEECBFFEAB45CFFEBAD
+    44FF9C7930FFDDE1E9FFA6A9B2FBDAAE549BB9800FABBE851400C08715008E8C
+    8C00000000220000003300000022C0850E00B8810EA2DDAC54FFFFF0C7FFDFBD
+    83FFB3B5BCFF7E7E7FFF717276A70000003300000033000000267D8088000000
+    00227E7B7ABD868484FF77787BBD000000060000001F9C7523ECA17A2FFFE2E6
+    EDFFC9C9CBFFA7A5A4FF727170FF8A8B8FFF7B7C81FF707072CB0000002F7F7D
+    7BBDA5A19FFFBFBDBBFFAFAEADFF3534354C595A5FB0A3A5AAFFE0E2E7FF8280
+    80FFD1D0D0FFC9C7C6FFD3D1D1FFEBEBECFFEFEEF0FFDCDCDCFF807E7CF08A89
+    87FFE0DEDEFFB9B7B5FFC3C1BFFF9F9C9BFF747371FFE7E7E7FFADAAA8FF8381
+    7FFFDBD9D8FFCECCCCFFCDCBC9FFCBC9CAFF898684FF878582FF8A8886FF8C89
+    87B0A29F9CFFE3E3E2FFC4C2BFFFD4D2D1FFBBB9B8FF797775FF83807E918B89
+    87FFE1E1E0FFCAC8C7FFCCCAC9FF8E8C89FF8D8A8800888685008A8886008D8A
+    8800A6A3A100908D8BFFEAE9EAFFD0CECDFFD4D2D2FF7B79779F868381009391
+    8EFFE3E2E1FFBBB9B8FFBCBABAFF94928FFF0000003300000033000000338F8C
+    8A0088858300858280AAAEACA9FFF2F1F1FFAEADABFF0000002D000000089C9A
+    97F4D5D4D3FFDDDBDBFFB4B1AFFFA9A6A4FF9D9B98FF9E9C98FF9C9B97FF8F8C
+    8A008A87850089868400827E7CA8B5B3B2FFFFFEFEFF868583E63B3A39536F6E
+    6B52AFADABFFDBDAD9FFF0EEEFFFECEBEAFFE2E0E0FFBFBCBCFFA3A19EFF8F8C
+    8A008B8886008B888600868381007F7C7984B2B0AFFFB6B4B3FF8A8887FF7775
+    73B1A9A7A42BA5A3A0E4AEACA9FFB9B6B5FFABA9A5FFA7A5A2D2A8A6A323C3F0
+    0000C1E00000C0C00000C0400000C0000000E0010000F0030000880100000000
+    0000000000000000000000070000C1000000C0000000E0000000F0000000}
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PageControl: TPageControl
+    Left = 0
+    Top = 0
+    Width = 478
+    Height = 361
+    ActivePage = tsResource
+    Align = alTop
+    MultiLine = True
+    TabOrder = 0
+    object tsFactor: TTabSheet
+      Caption = #1050#1086#1101#1092#1080#1094#1080#1077#1085#1090#1099
+      object Label4: TLabel
+        Left = 8
+        Top = 256
+        Width = 442
+        Height = 16
+        Alignment = taCenter
+        Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        WordWrap = True
+      end
+      object GroupBox1: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 470
+        Height = 209
+        Align = alTop
+        Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090
+        TabOrder = 0
+        object lbl1: TLabel
+          Left = 89
+          Top = 40
+          Width = 70
+          Height = 13
+          Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lbl2: TLabel
+          Left = 35
+          Top = 84
+          Width = 124
+          Height = 13
+          Caption = #1055#1086#1082#1072#1079#1072#1085#1080#1077' '#1074#1079#1074#1077#1096#1080#1074#1072#1085#1080#1103
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lbl4: TLabel
+          Left = 48
+          Top = 116
+          Width = 111
+          Height = 13
+          Caption = #1056#1072#1089#1095#1077#1090#1085#1099#1077' '#1087#1086#1082#1072#1079#1072#1085#1080#1103
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object edtFactor: TMaskEdit
+          Left = 180
+          Top = 36
+          Width = 118
+          Height = 21
+          EditMask = '0,999;1;0'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          MaxLength = 5
+          ParentFont = False
+          TabOrder = 0
+          Text = ' ,   '
+        end
+        object edtCalcInput: TEdit
+          Left = 180
+          Top = 80
+          Width = 121
+          Height = 21
+          TabOrder = 1
+          Text = '1'
+          OnKeyPress = edtFloatKeyPress
+        end
+        object btnCalc: TBitBtn
+          Left = 152
+          Top = 152
+          Width = 185
+          Height = 33
+          Caption = #1056#1072#1089#1095#1080#1090#1072#1090#1100' '#1082#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090
+          TabOrder = 3
+          WordWrap = True
+          OnClick = btnCalcClick
+        end
+        object edtCalcOut: TEdit
+          Left = 180
+          Top = 112
+          Width = 121
+          Height = 21
+          TabOrder = 2
+          Text = '1'
+          OnKeyPress = edtFloatKeyPress
+        end
+      end
+      object GroupBox2: TGroupBox
+        Left = 0
+        Top = 209
+        Width = 470
+        Height = 120
+        Align = alTop
+        Caption = #1051#1077#1085#1090#1072' '#1082#1086#1085#1074#1077#1081#1077#1088#1072
+        TabOrder = 1
+        object lbl5: TLabel
+          Left = 25
+          Top = 40
+          Width = 207
+          Height = 13
+          Caption = #1055#1077#1088#1080#1086#1076' '#1085#1072#1093#1086#1078#1076#1077#1085#1080#1077' '#1089#1084#1077#1089#1080' '#1085#1072' '#1083#1077#1085#1090#1077', '#1089#1077#1082
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label1: TLabel
+          Left = 376
+          Top = 40
+          Width = 50
+          Height = 13
+          Caption = '(7,35 '#1089#1077#1082')'
+        end
+        object Label6: TLabel
+          Left = 16
+          Top = 88
+          Width = 442
+          Height = 16
+          Alignment = taCenter
+          Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          Layout = tlCenter
+          WordWrap = True
+        end
+        object edtPassageTime: TMaskEdit
+          Left = 244
+          Top = 36
+          Width = 118
+          Height = 21
+          EditMask = '0,00;1;0'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          MaxLength = 4
+          ParentFont = False
+          TabOrder = 0
+          Text = ' ,  '
+        end
+      end
+    end
+    object tsConnect: TTabSheet
+      Caption = #1055#1086#1076#1082#1083#1102#1095#1077#1085#1080#1077' '#1082' OPC '
+      ImageIndex = 1
+      object lbl6: TLabel
+        Left = 38
+        Top = 48
+        Width = 110
+        Height = 13
+        Caption = #1048#1084#1103' (id) OPC '#1089#1077#1088#1074#1077#1088#1072':'
+      end
+      object lbl7: TLabel
+        Left = 50
+        Top = 104
+        Width = 98
+        Height = 13
+        Caption = 'OPC '#1090#1077#1075' '#1074#1077#1089' (float):'
+      end
+      object lbl8: TLabel
+        Left = 36
+        Top = 136
+        Width = 111
+        Height = 13
+        Caption = #1054#1056#1057' '#1090#1077#1089' '#1089#1090#1072#1090#1091#1089#1072' (int):'
+      end
+      object lbl9: TLabel
+        Left = 40
+        Top = 179
+        Width = 108
+        Height = 39
+        Alignment = taRightJustify
+        Caption = #1063#1072#1089#1090#1086#1090#1072' '#1086#1073#1085#1086#1074#1083#1077#1085#1080#1103' '#1076#1072#1085#1085#1099#1093', '#1084#1089' (0 - '#1085#1077' '#1080#1089#1087#1086#1083#1100#1079#1086#1074#1072#1090#1100' '#1082#1077#1096'):'
+        WordWrap = True
+      end
+      object Label2: TLabel
+        Left = 16
+        Top = 296
+        Width = 442
+        Height = 16
+        Alignment = taCenter
+        Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        WordWrap = True
+      end
+      object edtIdOpc: TEdit
+        Left = 160
+        Top = 44
+        Width = 297
+        Height = 21
+        TabOrder = 0
+        Text = 'arOPC.arOpcServer.1'
+      end
+      object edtTegWeight: TEdit
+        Left = 160
+        Top = 100
+        Width = 297
+        Height = 21
+        TabOrder = 1
+        Text = 'Test.in.weight'
+      end
+      object edtTagStatus: TEdit
+        Left = 160
+        Top = 132
+        Width = 297
+        Height = 21
+        TabOrder = 2
+        Text = 'Test.in.status'
+      end
+      object edtOpcRate: TEdit
+        Left = 160
+        Top = 188
+        Width = 297
+        Height = 21
+        TabOrder = 3
+        Text = '0'
+        OnKeyPress = edtIntKeyPress
+      end
+    end
+    object tsShift: TTabSheet
+      Caption = #1057#1084#1077#1085#1099
+      ImageIndex = 2
+      object Label5: TLabel
+        Left = 16
+        Top = 296
+        Width = 442
+        Height = 16
+        Alignment = taCenter
+        Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        WordWrap = True
+      end
+      object grp1: TGroupBox
+        Left = 0
+        Top = 105
+        Width = 470
+        Height = 105
+        Align = alTop
+        Caption = #1057#1084#1077#1085#1072' 2'
+        TabOrder = 0
+        object lbl10: TLabel
+          Left = 98
+          Top = 28
+          Width = 99
+          Height = 13
+          Caption = #1053#1072#1095#1072#1083#1086' '#1089#1084#1077#1085#1099', '#1095#1072#1089':'
+        end
+        object lbl11: TLabel
+          Left = 104
+          Top = 60
+          Width = 93
+          Height = 13
+          Caption = #1050#1086#1085#1077#1094' '#1089#1084#1077#1085#1099', '#1095#1072#1089':'
+        end
+        object edtShift2Begin: TEdit
+          Left = 224
+          Top = 24
+          Width = 41
+          Height = 21
+          TabOrder = 0
+          OnExit = edtShift2Begin1Exit
+          OnKeyPress = edtIntKeyPress
+        end
+        object edtShift2End: TEdit
+          Left = 224
+          Top = 56
+          Width = 41
+          Height = 21
+          TabOrder = 1
+          OnExit = edtShift2End1Exit
+          OnKeyPress = edtIntKeyPress
+        end
+      end
+      object grp2: TGroupBox
+        Left = 0
+        Top = 0
+        Width = 470
+        Height = 105
+        Align = alTop
+        Caption = #1057#1084#1077#1085#1072' 1'
+        TabOrder = 1
+        object lbl12: TLabel
+          Left = 98
+          Top = 28
+          Width = 99
+          Height = 13
+          Caption = #1053#1072#1095#1072#1083#1086' '#1089#1084#1077#1085#1099', '#1095#1072#1089':'
+        end
+        object lbl13: TLabel
+          Left = 104
+          Top = 60
+          Width = 93
+          Height = 13
+          Caption = #1050#1086#1085#1077#1094' '#1089#1084#1077#1085#1099', '#1095#1072#1089':'
+        end
+        object edtShift1Begin: TEdit
+          Left = 224
+          Top = 24
+          Width = 41
+          Height = 21
+          TabOrder = 0
+          OnExit = edtShift1Begin1Exit
+          OnKeyPress = edtIntKeyPress
+        end
+        object edtShift1End: TEdit
+          Left = 224
+          Top = 56
+          Width = 41
+          Height = 21
+          TabOrder = 1
+          OnExit = edtShift1End1Exit
+          OnKeyPress = edtIntKeyPress
+        end
+      end
+    end
+    object tsResource: TTabSheet
+      Caption = #1056#1077#1089#1091#1088#1089#1099
+      ImageIndex = 3
+      object Label3: TLabel
+        Left = 8
+        Top = 312
+        Width = 442
+        Height = 16
+        Alignment = taCenter
+        Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        WordWrap = True
+      end
+      object ListBoxWeight: TListBox
+        Left = 8
+        Top = 8
+        Width = 449
+        Height = 225
+        ItemHeight = 13
+        TabOrder = 0
+        OnClick = ListBoxWeightDblClick
+      end
+      object edtFieldRes: TEdit
+        Left = 8
+        Top = 241
+        Width = 449
+        Height = 24
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        Text = #1053#1086#1074#1099#1081' '#1088#1077#1089#1091#1088#1089
+      end
+      object BitBtn1: TBitBtn
+        Left = 8
+        Top = 272
+        Width = 91
+        Height = 25
+        Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+        TabOrder = 2
+        OnClick = BitBtn1Click
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000232E0000232E00000000000000000001FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFDCDCDCCCCCCCCCCCCCCCCCCCDCDCDCFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3FA07500894900
+          88470089493FA075FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFF0089490FE9AC00E2A10FE9AC008949FFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00874720E4AF00
+          D99B20E4AF008747FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFF00874631E2B500D49A31E2B5008746FFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFDCDCDCCCCCCCCCCCCCCCCCCCCCCCCC00874444E4BC00
+          D09844E4BC008744CCCCCCCCCCCCCCCCCCCCCCCCDCDCDCFFFFFF3FA074008A48
+          00894700894700884600834058E3C300CD9858E3C30083400088460089470089
+          47008A483FA074FFFFFF00894769EBD200D0A000D0A100D0A100CE9E00CB9A00
+          CA9900CB9A00CE9E00D0A100D0A100D0A069EBD2008947FFFFFF00884475E8D3
+          00C69900C69900C69900C69900C69900C69900C69900C69900C69900C69900C6
+          9975E8D3008844FFFFFF0089468AEEDE8AEADA8BEAD98BEAD98BE8D752D8BE00
+          C29652D8BE8BE8D78BEAD98BEAD98AEADA8AEEDE008946FFFFFF4FB083008946
+          00874300874300864200813A97E9DC00BE9597E9DC00813A0086420087430087
+          43008946109457FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00864199EADE00
+          BB9599EADE008641FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFF00874298E9DE00B79498E9DE008742FFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00884397E7E000
+          B39597E7E0008843FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFF0089469AE9E696E6E19AE9E6008946FFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4FB08300894600
+          8843008946109456FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+      end
+      object BitDelete: TBitBtn
+        Left = 368
+        Top = 272
+        Width = 91
+        Height = 25
+        Caption = #1059#1076#1072#1083#1080#1090#1100
+        Enabled = False
+        TabOrder = 3
+        OnClick = BitDeleteClick
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000232E0000232E00000000000000000001FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCCCCCCCCCFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFCCCCCCCCCCCCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          CCCCCC3040C43040C4CCCCCCFFFFFFFFFFFFFFFFFFFFFFFFCCCCCC3040C43040
+          C4CCCCCCFFFFFFFFFFFFFFFFFFCCCCCC3040C46C7EFC6C7EFC3040C4CCCCCCFF
+          FFFFFFFFFFCCCCCC3040C46C7EFC6C7EFC3040C4CCCCCCFFFFFFFFFFFF3040C4
+          7182FA596EF9596EF97182FA3040C4CCCCCCCCCCCC3040C47182FA596EF9596E
+          F97182FA3040C4FFFFFFFFFFFF3040C47687F85469F75469F75469F77687F830
+          40C43040C47687F85469F75469F75469F77687F83040C4FFFFFFFFFFFFFFFFFF
+          3040C47B8CF74F65F54F65F54F65F57B8CF77B8CF74F65F54F65F54F65F57B8C
+          F73040C4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3040C48291F64B61F34B61F34B
+          61F34B61F34B61F34B61F38291F63040C4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFF3040C48896F6465DF0465DF0465DF0465DF08896F63040C4FFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCCC3040C48F9DF54159EE41
+          59EE4159EE4159EE8F9DF53040C4CCCCCCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          CCCCCC3040C497A3F53C55EC3C55EC3C55EC3C55EC3C55EC3C55EC97A3F53040
+          C4CCCCCCFFFFFFFFFFFFFFFFFFCCCCCC3040C49EABF43751EA3751EA3751EA9E
+          ABF49EABF43751EA3751EA3751EA9EABF43040C4CCCCCCFFFFFFFFFFFF3040C4
+          A7B3F5324DE7324DE7324DE7A7B3F53040C43040C4A7B3F5324DE7324DE7324D
+          E7A7B3F53040C4FFFFFFFFFFFF3040C4B0BBF52D49E52D49E5B0BBF53040C4FF
+          FFFFFFFFFF3040C4B0BBF52D49E52D49E5B0BBF53040C4FFFFFFFFFFFFFFFFFF
+          3040C4BAC3F6BAC3F63040C4FFFFFFFFFFFFFFFFFFFFFFFF3040C4BAC3F6BAC3
+          F63040C4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF3040C43040C4FFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFF3040C43040C4FFFFFFFFFFFFFFFFFF}
+      end
+      object btnEdit: TBitBtn
+        Left = 184
+        Top = 272
+        Width = 91
+        Height = 25
+        Caption = #1048#1079#1084#1077#1085#1080#1090#1100
+        TabOrder = 4
+        OnClick = btnEditClick
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000232E0000232E00000000000000000001FFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFCCCCCCCCCCCCCCCCCCFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5A6C7C4A
+          67845291D9CCCCCCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFF60859F82A7B690D6FF376A9BCCCCCCFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4DB2F28F
+          E8FF81D5FF159BFF3D6D9BCCCCCCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF307AC944C8FF2CABFF1B9EFF3C6D9BCCCC
+          CCFFFFFFFFFFFFFFFFFFDCDCDCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+          CCCC307DCC46C9FF2DACFF179DFF316BA2CCCCCCD4D4D4FFFFFFA5917F8F7157
+          8D6F548D6F548E7054907054916F51956D4A9B6A412877C941C8FF22ABFF83B1
+          D87E7974A0856AFFFFFF8F7157FFFFFFFFFBF7FFFEF9FFFFFFFFFFFFFFFFFFFF
+          FDF7FFFBF1FFFFF02278CFB0DDF4928880C0BFBA767C72CCCCCC8D6F54FDFAF4
+          F5EFE8FAF5EE4422004C2A08442200FAF5EEF6F0E8FFF9F0532900888480EAE8
+          E5888B82BA79B79869CB8D6E54FBF5EEF0E6DBF3E9DFFFF8EF583616FFF8EFF3
+          EADFF1E7DCFAF1E7603D1CFFFAEF7C7F7ADFAFDFCB96C7AE7DCF8D6F54FAF5EC
+          EBE1D3EDE2D5F6EDE0603F21F6EDE0EDE3D6EEE4D6F7EEE1725234FAF1E4F5ED
+          D9BC81D7BF88DBFFFFFF8D6F54FBF6EDEADCCBEDE0D0F3E7D76D4D2FF3E7D7EE
+          E1D1EEE1D080614685674D806146EDE1CEFDFAEB8B704CFFFFFF8D6F54FDF8EF
+          E8DAC4664528F3E7D27C5D41F3E7D2664629EADDC8E9DBC7EADCC8E8DAC5E5D6
+          C0FCF8EE8C6F53FFFFFF8D6F55FFFAF3E5D4B982634886674C87684E86674C83
+          6449E5D4BAE1CFB6E0CFB5E0CEB4E0CDB3FEF9F18D6F55FFFFFF8F7158FFFFFD
+          FFFFFAFFFFFDFFFFFFFFFFFFFFFFFFFFFFFDFFFFF9FFFDF7FFFCF6FFFCF6FFFD
+          F7FFFFFD8F7158FFFFFF9A80678F72578D6F558D6F558E70558E70558E70558D
+          6F558D6F548D6F548D6E548D6E548D6F548F71579A8067FFFFFF}
+      end
+    end
+  end
+  object btnSave: TBitBtn
+    Left = 296
+    Top = 368
+    Width = 161
+    Height = 33
+    Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+    TabOrder = 1
+    OnClick = btnSaveClick
+    Kind = bkYes
+  end
+  object BitBtnCancel: TBitBtn
+    Left = 24
+    Top = 368
+    Width = 161
+    Height = 33
+    Caption = #1054#1090#1084#1077#1085#1080#1090#1100' '#1080' '#1074#1099#1081#1090#1080
+    TabOrder = 2
+    Kind = bkCancel
+  end
+end

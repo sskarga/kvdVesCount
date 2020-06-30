@@ -285,7 +285,7 @@ object FormReport: TFormReport
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44011.423376909720000000
-    ReportOptions.LastChange = 44011.503366365740000000
+    ReportOptions.LastChange = 44012.415301145830000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -334,28 +334,44 @@ object FormReport: TFormReport
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       object ReportTitle1: TfrxReportTitle
-        Height = 56.692950000000000000
+        Height = 124.724490000000000000
         Top = 18.897650000000000000
         Width = 718.110700000000000000
         object Memo1: TfrxMemoView
-          Top = 3.779530000000000000
+          Top = 49.133890000000000000
           Width = 718.110700000000000000
-          Height = 18.897650000000000000
+          Height = 52.913420000000000000
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -13
+          Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = []
           HAlign = haCenter
           Memo.UTF8 = (
-            #1056#1115#1057#8218#1057#8225#1056#181#1057#8218' '#1056#183#1056#176' [DateReport]')
+            #1057#1026#1056#176#1056#177#1056#1109#1057#8218#1057#8249' '#1056#1030#1056#183#1056#1030#1056#181#1057#8364#1056#1105#1056#1030#1056#176#1057#1035#1057#8240#1056#181#1056#1110#1056#1109' '#1056#1108#1056#1109#1056#1029#1056#1030#1056#181#1056#8470#1056#181#1057#1026#1056#176' '#1074#8222#8211'60'
+            #1056#183#1056#176' [DateReport]')
+          ParentFont = False
+        end
+        object Memo16: TfrxMemoView
+          Top = 15.118120000000000000
+          Width = 718.110700000000000000
+          Height = 30.236240000000000000
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          HAlign = haCenter
+          Memo.UTF8 = (
+            #1056#1115#1057#8218#1057#8225#1056#181#1057#8218' ')
           ParentFont = False
         end
       end
       object PageFooter1: TfrxPageFooter
         Height = 22.677180000000000000
-        Top = 328.819110000000000000
+        Top = 396.850650000000000000
         Width = 718.110700000000000000
         object Date: TfrxMemoView
           Left = 638.740570000000000000
@@ -391,7 +407,7 @@ object FormReport: TFormReport
       end
       object MasterData1: TfrxMasterData
         Height = 30.236240000000000000
-        Top = 188.976500000000000000
+        Top = 257.008040000000000000
         Width = 718.110700000000000000
         DataSet = frxUserDataSet
         DataSetName = 'frxUserDataSet'
@@ -489,7 +505,7 @@ object FormReport: TFormReport
       end
       object Header1: TfrxHeader
         Height = 30.236220470000000000
-        Top = 136.063080000000000000
+        Top = 204.094620000000000000
         Width = 718.110700000000000000
         object Memo7: TfrxMemoView
           Left = 7.559060000000000000
@@ -585,7 +601,7 @@ object FormReport: TFormReport
       end
       object Footer1: TfrxFooter
         Height = 26.456710000000000000
-        Top = 241.889920000000000000
+        Top = 309.921460000000000000
         Width = 718.110700000000000000
         object Memo12: TfrxMemoView
           Left = 408.189240000000000000

@@ -9,7 +9,8 @@ uses
   Dialogs, ActnMan, ActnColorMaps, XPMan, StdCtrls, Menus, ExtCtrls,
   ComCtrls, TeEngine, Series, TeeProcs, Chart, DateUtils, UWeight, TLoggerUnit,
   TConfiguratorUnit, ActiveX, xmldom, XMLIntf, msxmldom, XMLDoc, UConfig,
-  prOpcClient, UChangeResource, ToolWin, ActnList, StdActns;
+  prOpcClient, UChangeResource, ToolWin, ActnList, StdActns, ActnCtrls,
+  XPStyleActnCtrls, ImgList, USetting;
 
 type
   TMainForm = class(TForm)
@@ -39,13 +40,28 @@ type
     spl2: TSplitter;
     lblStatus: TLabel;
     lblResourceName: TLabel;
-    ToolBar1: TToolBar;
     N4: TMenuItem;
     N5: TMenuItem;
     N6: TMenuItem;
     N7: TMenuItem;
+    ilAction16: TImageList;
     ActionList: TActionList;
-    FileExit1: TFileExit;
+    actExit: TFileExit;
+    actReport: TAction;
+    actChangeResource: TAction;
+    actResetWeight: TAction;
+    N8: TMenuItem;
+    ToolBar: TToolBar;
+    btnReport: TToolButton;
+    ToolButton1: TToolButton;
+    btnChangeResource: TToolButton;
+    btnResetWeight: TToolButton;
+    actInfo: TAction;
+    ToolButton2: TToolButton;
+    btnInfo: TToolButton;
+    actVersion1: TMenuItem;
+    actSetting: TAction;
+    N9: TMenuItem;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -53,8 +69,12 @@ type
       ItemIndex: Integer; const NewValue: Variant; NewQuality: Word;
       NewTimestamp: TDateTime);
     procedure lblResourceNameDblClick(Sender: TObject);
+    procedure actReportExecute(Sender: TObject);
+    procedure actChangeResourceExecute(Sender: TObject);
+    procedure actResetWeightExecute(Sender: TObject);
     procedure lblWeightResourceDblClick(Sender: TObject);
-    procedure N3Click(Sender: TObject);
+    procedure actInfoExecute(Sender: TObject);
+    procedure actSettingExecute(Sender: TObject);
   private
     { Private declarations }
     procedure LiveChartInit();
@@ -87,6 +107,8 @@ var
   log : TLogger;          // Логгер
   Config: IConfig;        // Конфигурация
   curConfig: RConfig;     // Текущая конфигурация
+
+  flagLastUpdateShiftChart: Integer;
 
   DataWeight: IDataWeight;
   curWeightData: RDataWeight; // Текущий вес
@@ -149,6 +171,8 @@ begin
   log.Info('------------------------ START ------------------------');
   log.Info('Config logfile: log4delphi.properties');
   log.info('Version: '+ GetMyVersion);
+
+  flagLastUpdateShiftChart := 0;
 
   Config := TXMLConfig.Create(workDirectory + '\config.xml');
 
@@ -362,8 +386,9 @@ begin
   end;
 
   DecodeDateTime(Now, Y, M, D, H, Min, Sec, MilSec);
-  if M = CHARTSHIFT_STEP_MINUT then
+  if (M = CHARTSHIFT_STEP_MINUT) and (flagLastUpdateShiftChart = M) then
   begin
+    flagLastUpdateShiftChart := M;
     chtSheft.Series[0].AddXY(Now, CountWeight.Weight);
   end;
 
@@ -371,6 +396,17 @@ begin
 end;
 
 procedure TMainForm.lblResourceNameDblClick(Sender: TObject);
+begin
+  actChangeResource.Execute;
+end;
+
+
+procedure TMainForm.actReportExecute(Sender: TObject);
+begin
+  FormReport.ShowModal;
+end;
+
+procedure TMainForm.actChangeResourceExecute(Sender: TObject);
 var
   i: Integer;
 begin
@@ -394,9 +430,10 @@ begin
         MainForm.UpdateViewWeight;
     end;
   end;
+
 end;
 
-procedure TMainForm.lblWeightResourceDblClick(Sender: TObject);
+procedure TMainForm.actResetWeightExecute(Sender: TObject);
 begin
     if MessageDlg('Сбросить счетчик?',  mtConfirmation, [mbYes, mbNo], 0) = mrYes then
     begin
@@ -404,13 +441,38 @@ begin
         log.Info('Reset count resource. WeightReset = ' + FloatToStr(WeightReset));
         UpdateViewWeight;
     end;
-
 end;
 
-
-procedure TMainForm.N3Click(Sender: TObject);
+procedure TMainForm.lblWeightResourceDblClick(Sender: TObject);
 begin
-  FormReport.ShowModal;
+  actResetWeight.Execute;
+end;
+
+procedure TMainForm.actInfoExecute(Sender: TObject);
+var
+  msgvar: string;
+begin
+  msgvar:= 'Версия ' + GetMyVersion + #13#10 + 'ПО "Учет веса" 2020г.';
+  MessageBox(Handle, PAnsiChar(msgvar), 'Версия', MB_OK + MB_ICONINFORMATION + MB_TOPMOST);
+end;
+
+procedure TMainForm.actSettingExecute(Sender: TObject);
+begin
+  if FormSetting.ShowModal = mrYes then
+  begin
+    WeightReset := 0;
+    DataWeight.Save(curConfig.shiftDate, curWeightData);
+    if Config.Save(curConfig) then
+    begin
+     MessageDlg('Конфигурация сохранена.' + #13#10 + 
+       'Перезапустите программу.',  mtInformation, [mbOK], 0);
+
+    end
+    else
+     MessageDlg('Ошибка сохранения конфигурации.',  mtError, [mbOK], 0);
+     
+
+  end;
 end;
 
 end.
