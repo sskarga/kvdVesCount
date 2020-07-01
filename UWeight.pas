@@ -69,15 +69,22 @@ begin
 
     if (weight > 0) and (duration < (Self._period * 1.5)) then
     begin
-      duration_err := duration - Round(Self._period);
-      cor_weight:=RoundTo( weight/(duration/duration_err), -2);
+      try
+        duration_err := duration - Round(Self._period);
+        if duration_err > 0 then
+          cor_weight := RoundTo( weight/(duration/duration_err), -2)
+        else
+          cor_weight := 0;
 
-      wrLock.WaitToWrite;
-      Self._weight := RoundTo(weight + cor_weight, -2);
-      weightCount := Self._weight;
-      wrLock.Done;
+        wrLock.WaitToWrite;
+        Self._weight := RoundTo(weight + cor_weight, -2);
+        weightCount := Self._weight;
+        wrLock.Done;
+        Self.callBackEventChange(weightCount);
+      except
+        Self._weight := 0;
+      end;
 
-      Self.callBackEventChange(weightCount);
     end;
 
   end;

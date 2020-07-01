@@ -3,6 +3,7 @@ object FormReport: TFormReport
   Top = 351
   Width = 310
   Height = 223
+  BorderIcons = [biSystemMenu]
   Caption = #1057#1086#1079#1076#1072#1090#1100' '#1086#1090#1095#1077#1090
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -285,7 +286,7 @@ object FormReport: TFormReport
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44011.423376909720000000
-    ReportOptions.LastChange = 44012.415301145830000000
+    ReportOptions.LastChange = 44012.625227997680000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -349,7 +350,9 @@ object FormReport: TFormReport
           Font.Style = []
           HAlign = haCenter
           Memo.UTF8 = (
-            #1057#1026#1056#176#1056#177#1056#1109#1057#8218#1057#8249' '#1056#1030#1056#183#1056#1030#1056#181#1057#8364#1056#1105#1056#1030#1056#176#1057#1035#1057#8240#1056#181#1056#1110#1056#1109' '#1056#1108#1056#1109#1056#1029#1056#1030#1056#181#1056#8470#1056#181#1057#1026#1056#176' '#1074#8222#8211'60'
+            
+              #1056#1111#1056#1109' '#1057#1026#1056#176#1056#177#1056#1109#1057#8218#1056#181' '#1056#1030#1056#183#1056#1030#1056#181#1057#8364#1056#1105#1056#1030#1056#176#1057#1035#1057#8240#1056#181#1056#1110#1056#1109' '#1056#1108#1056#1109#1056#1029#1056#1030#1056#181#1056#8470#1056#181#1057#1026#1056#176' ' +
+              #1074#8222#8211'60'
             #1056#183#1056#176' [DateReport]')
           ParentFont = False
         end

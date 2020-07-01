@@ -279,7 +279,14 @@ begin
     begin
       if ( conf.workShifts[i].startHour <= 23 ) and (conf.workShifts[i].endHour >= 0 ) then
       begin
-        shiftDate := EncodeDateTime(Y, M, (D - 1), 0, 0, 0, 0);
+        if H < conf.workShifts[i].endHour then
+        begin
+          DecodeDateTime(Yesterday, Y, M, D, H, Min, Sec, MilSec);
+          shiftDate := EncodeDateTime(Y, M, D, 0, 0, 0, 0);
+        end
+        else
+            shiftDate := EncodeDateTime(Y, M, D, 0, 0, 0, 0);
+            
         find := True;
       end;
     end;

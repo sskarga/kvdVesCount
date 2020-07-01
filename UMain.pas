@@ -75,6 +75,9 @@ type
     procedure lblWeightResourceDblClick(Sender: TObject);
     procedure actInfoExecute(Sender: TObject);
     procedure actSettingExecute(Sender: TObject);
+    procedure OpcSimpleClientConnect(Sender: TObject);
+    procedure OpcSimpleClientDisconnect(Sender: TObject);
+    procedure OpcSimpleClientServerShutdown(Sender: TObject);
   private
     { Private declarations }
     procedure LiveChartInit();
@@ -124,13 +127,17 @@ var
 
   CountWeight: TCountWeight;
 
+  // Вычисление среднего
+  arrAvgWeight: array of Double;
+  avgIndex: Integer;
+
 //------------------------------------------------------------------------------
                                 implementation
 //------------------------------------------------------------------------------
 
 {$R *.dfm}
 
-uses UReport;
+uses UReport, Math;
 
 // Version
 function GetMyVersion:string;
@@ -158,6 +165,8 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
+var
+  lenArrAvg: Integer;
 begin
   CoInitialize(nil);
 
@@ -188,6 +197,10 @@ begin
     curWeightData.curIDResurce := 1;
     curWeightData.factor := 1;
     SetLength(curWeightData.weight, Length(curConfig.workShifts), Length(curConfig.weightNames)+1);
+    // 60 - секунд в минуте, 30 - таймер Timer1
+    lenArrAvg:= Ceil((60 * CHARTSHIFT_STEP_MINUT + 30) / curConfig.weightPassageTime) + 1;
+    SetLength(arrAvgWeight, lenArrAvg);
+    avgIndex := 0;
 
     log.Info('Load data weight');
     DataWeight := TXMLDataWeight.Create();
@@ -202,12 +215,12 @@ begin
     log.Info('Init and connect opc client');
     idStatus := CONTROLLER_WAIT;
 
-//    OpcSimpleClient.ProgID := curConfig.ServerProgId;
-//    OpcSimpleClient.Groups.Groups[0].Items.Clear;
-//    idWeight := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagWeight);
-//    idStatus := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagStatus);
-//    OpcSimpleClient.Groups.Groups[0].UpdateRate := curConfig.OPCUpdateRate;
-//    OpcSimpleClient.Connect;
+    OpcSimpleClient.ProgID := curConfig.ServerProgId;
+    OpcSimpleClient.Groups.Groups[0].Items.Clear;
+    idWeight := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagWeight);
+    idStatus := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagStatus);
+    OpcSimpleClient.Groups.Groups[0].UpdateRate := curConfig.OPCUpdateRate;
+    OpcSimpleClient.Connect;
 
     log.Info('Init chart');
     LiveChartInit();
@@ -254,10 +267,7 @@ begin
   //OpcDataChange(ItemIndex, NewValue);
   if ItemIndex = idWeight then
   begin
-    if tagStatus = CONTROLLER_WORK then
-    begin
-      CountWeight.PeriodSetWeight(NewValue, NewTimestamp);
-    end
+    CountWeight.PeriodSetWeight(NewValue, NewTimestamp);
   end;
 
   if ItemIndex = idStatus then
@@ -303,18 +313,30 @@ var
   shiftID : Integer;
   resourceID: Integer;
 begin
-  shiftID    := curConfig.shiftId;
-  resourceID := curWeightData.curIDResurce;
 
-  log.Trace('ShiftID/ResurceID '+ IntToStr(shiftID + 1) + '/'+ IntToStr(resourceID) + '. Weight count = ' + FloatToStr(weight));
+  if tagStatus = CONTROLLER_WORK then
+  begin
+    shiftID    := curConfig.shiftId;
+    resourceID := curWeightData.curIDResurce;
 
-  curWeightData.weight[shiftID, 0] := curWeightData.weight[shiftID, 0] + weight;
-  curWeightData.weight[shiftID, resourceID] := curWeightData.weight[shiftID, resourceID] + weight;
+    log.Trace('ShiftID/ResurceID '+ IntToStr(shiftID + 1) + '/'+ IntToStr(resourceID) + '. Weight count = ' + FloatToStr(weight));
 
-  MainForm.UpdateViewWeight;
+    curWeightData.weight[shiftID, 0] := curWeightData.weight[shiftID, 0] + weight;
+    curWeightData.weight[shiftID, resourceID] := curWeightData.weight[shiftID, resourceID] + weight;
 
-  //DataWeight.Save(curConfig.shiftDate, curWeightData);
-  MainForm.LiveChartAdd(weight);
+    MainForm.UpdateViewWeight;
+    MainForm.LiveChartAdd(weight);
+
+    // avg
+    arrAvgWeight[avgIndex]:= weight;
+    if avgIndex < Length(arrAvgWeight) then
+        inc(avgIndex);
+  end
+  else
+  begin
+    MainForm.LiveChartAdd(0);
+  end;
+
 end;
 
 // Live Chart
@@ -357,7 +379,7 @@ var
 begin
   chtSheft.Series[0].Clear;
 
-  DecodeDateTime(curConfig.shiftDate, Y, M, D, H, Min, Sec, MilSec);
+  DecodeDateTime(Now, Y, M, D, H, Min, Sec, MilSec);
 
   if curConfig.workShifts[curConfig.shiftId].startHour < curConfig.workShifts[curConfig.shiftId].endHour then
     begin
@@ -366,8 +388,10 @@ begin
     end
   else
     begin
-      AMax := EncodeDateTime(Y, M, D+1, curConfig.workShifts[curConfig.shiftId].endHour, 0, 0, 0);
       aMin := EncodeDateTime(Y, M, D, curConfig.workShifts[curConfig.shiftId].startHour, 0, 0, 0);
+
+      DecodeDateTime(Tomorrow, Y, M, D, H, Min, Sec, MilSec);
+      AMax := EncodeDateTime(Y, M, D, curConfig.workShifts[curConfig.shiftId].endHour, 0, 0, 0);
     end;
 
   chtSheft.BottomAxis.Maximum := AMax;
@@ -377,19 +401,39 @@ end;
 procedure TMainForm.Timer1Timer(Sender: TObject);
 var
   Y, M, D, H, Min, Sec, MilSec: Word;
+  i: integer;
+  avg: Double;
 begin
-  if changeShift(curConfig) then
+  DecodeDateTime(Now, Y, M, D, H, Min, Sec, MilSec);
+
+  if Min = 0 then
   begin
-    log.Info('--- New shift ID = '+ IntToStr(curConfig.shiftId) + ' ---');
-    ShiftChartInit();
-    WeightReset:= 0;
+    if changeShift(curConfig) then
+    begin
+      log.Info('--- New shift ID = '+ IntToStr(curConfig.shiftId) + ' ---');
+      ShiftChartInit();
+      WeightReset:= 0;
+    end;
   end;
 
-  DecodeDateTime(Now, Y, M, D, H, Min, Sec, MilSec);
-  if (M = CHARTSHIFT_STEP_MINUT) and (flagLastUpdateShiftChart = M) then
+  if (Min mod CHARTSHIFT_STEP_MINUT = 0) and (flagLastUpdateShiftChart <> Min) then
   begin
-    flagLastUpdateShiftChart := M;
-    chtSheft.Series[0].AddXY(Now, CountWeight.Weight);
+    flagLastUpdateShiftChart := Min;
+
+    // Avg
+    avg := 0;
+    if avgIndex > 1 then
+    begin
+      for i:= 0 to avgIndex do
+          avg := avg + arrAvgWeight[i];
+      avg := Round(avg/avgIndex)
+    end;
+
+    chtSheft.Series[0].AddXY(Now, avg);
+    avgIndex := 0;
+
+    
+    log.Trace('Add weight to chart Shift.');
   end;
 
   DataWeight.Save(curConfig.shiftDate, curWeightData);
@@ -464,15 +508,33 @@ begin
     DataWeight.Save(curConfig.shiftDate, curWeightData);
     if Config.Save(curConfig) then
     begin
-     MessageDlg('Конфигурация сохранена.' + #13#10 + 
+      log.Info('Config save.');
+      MessageDlg('Конфигурация сохранена.' + #13#10 +
        'Перезапустите программу.',  mtInformation, [mbOK], 0);
-
     end
     else
+    begin
+     log.Info('Config not save.');
      MessageDlg('Ошибка сохранения конфигурации.',  mtError, [mbOK], 0);
+    end;
      
 
   end;
+end;
+
+procedure TMainForm.OpcSimpleClientConnect(Sender: TObject);
+begin
+  log.Info('Opc client - Connect');
+end;
+
+procedure TMainForm.OpcSimpleClientDisconnect(Sender: TObject);
+begin
+  log.Warn('Opc client - Disconnect');
+end;
+
+procedure TMainForm.OpcSimpleClientServerShutdown(Sender: TObject);
+begin
+  log.Warn('Opc client - Server shutdown');
 end;
 
 end.
