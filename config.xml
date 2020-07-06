@@ -21,7 +21,7 @@
 		<resource id="11" name="Шлаковая добавка"/>
 	</resources>	
 	<shifts>
-		<shift id="1" timeHourStart="7" timeHourEnd="16"/>
-		<shift id="2" timeHourStart="16" timeHourEnd="7"/>
+		<shift id="1" timeHourStart="7" timeHourEnd="19"/>
+		<shift id="2" timeHourStart="19" timeHourEnd="7"/>
 	</shifts>
 </setting>

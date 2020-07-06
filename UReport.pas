@@ -34,6 +34,7 @@ implementation
 procedure TFormReport.btnCreateReportClick(Sender: TObject);
 begin
     ReadDataWeight := TXMLDataWeight.Create();
+    
     if ReadDataWeight.Load(DateTimePicker.DateTime, ReportWeightData) then
     begin
       frxUserDataSet.RangeEnd := reCount;

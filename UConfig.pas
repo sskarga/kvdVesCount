@@ -108,7 +108,7 @@ var
 //------------------------------------------------------------------------------
                                 implementation
 //------------------------------------------------------------------------------
-uses DateUtils;
+uses DateUtils, FileCtrl;
 
 
 constructor TXMLConfig.Create(fileName: string);
@@ -295,11 +295,13 @@ begin
     if find then
     begin
       shiftId := i;
-      conf.shiftDate := shiftDate;
-      conf.shiftId := shiftId;
 
       if (shiftDate <> conf.shiftDate) or (shiftId <> conf.shiftId) then
-          Result := True;
+      begin
+        conf.shiftDate := shiftDate;
+        conf.shiftId := shiftId;
+        Result := True;
+      end;
 
       Break;
     end;
@@ -503,6 +505,70 @@ begin
 
   end;
 
+end;
+
+{
+”даление не пустого каталог с подкаталогами
+-DeleteAllFilesAndFolder -  TRUE установить флаг faArchive перед удаление
+-StopIfNotAllDeleted - TRUE остановить удаление если возникла ошибка;
+-RemoveRoot - TRUE удаление корн€
+
+«ависимости: FileCtrl, SysUtils
+Example: FullRemoveDir('C:\a', true, true, true);
+}
+
+function FullRemoveDir(Dir: string; DeleteAllFilesAndFolders,
+  StopIfNotAllDeleted, RemoveRoot: boolean): Boolean;
+var
+  i: Integer;
+  SRec: TSearchRec;
+  FN: string;
+begin
+  Result := False;
+  if not DirectoryExists(Dir) then
+    exit;
+  Result := True;
+
+  Dir := IncludeTrailingBackslash(Dir);
+  i := FindFirst(Dir + '*', faAnyFile, SRec);
+  try
+    while i = 0 do
+    begin
+
+      FN := Dir + SRec.Name;
+
+      if SRec.Attr = faDirectory then
+      begin
+
+        if (SRec.Name <> '') and (SRec.Name <> '.') and (SRec.Name <> '..') then
+        begin
+          if DeleteAllFilesAndFolders then
+            FileSetAttr(FN, faArchive);
+          Result := FullRemoveDir(FN, DeleteAllFilesAndFolders,
+            StopIfNotAllDeleted, True);
+          if not Result and StopIfNotAllDeleted then
+            exit;
+        end;
+      end
+      else
+      begin
+        if DeleteAllFilesAndFolders then
+          FileSetAttr(FN, faArchive);
+        Result := SysUtils.DeleteFile(FN);
+        if not Result and StopIfNotAllDeleted then
+          exit;
+      end;
+
+      i := FindNext(SRec);
+    end;
+  finally
+    SysUtils.FindClose(SRec);
+  end;
+  if not Result then
+    exit;
+  if RemoveRoot then
+    if not RemoveDir(Dir) then
+      Result := false;
 end;
 
 end.

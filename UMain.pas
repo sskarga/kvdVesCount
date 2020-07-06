@@ -103,6 +103,8 @@ const
   CONTROLLER_WAIT = 1;
   CONTROLLER_WORK = 2;
 
+  // FileName Chart Shift Data
+  FILE_CHART_SHIFT_DATA = 'data/shiftChart.dat';
 
 var
   MainForm: TMainForm;
@@ -115,7 +117,7 @@ var
 
   DataWeight: IDataWeight;
   curWeightData: RDataWeight; // Текущий вес
-  WeightReset: Double;
+  WeightReset: Double; // Вес для сброса счетчика
 
   // ID tag opc
   idStatus : Integer;
@@ -123,9 +125,8 @@ var
 
   // Значение тегов
   tagStatus : Integer = CONTROLLER_WAIT;
-  tagConnected : Boolean = False;
 
-  CountWeight: TCountWeight;
+  CountWeight: TCountWeight; // Учет веса
 
   // Вычисление среднего
   arrAvgWeight: array of Double;
@@ -137,7 +138,7 @@ var
 
 {$R *.dfm}
 
-uses UReport, Math;
+uses UReport, Math, UCharHelp;
 
 // Version
 function GetMyVersion:string;
@@ -197,8 +198,9 @@ begin
     curWeightData.curIDResurce := 1;
     curWeightData.factor := 1;
     SetLength(curWeightData.weight, Length(curConfig.workShifts), Length(curConfig.weightNames)+1);
-    // 60 - секунд в минуте, 30 - таймер Timer1
-    lenArrAvg:= Ceil((60 * CHARTSHIFT_STEP_MINUT + 30) / curConfig.weightPassageTime) + 1;
+
+    // Расчет среднего = 60 - секунд в минуте, 30 - таймер Timer1
+    lenArrAvg:= Ceil((60 * CHARTSHIFT_STEP_MINUT + 30) / Ceil(curConfig.weightPassageTime)) + 1;
     SetLength(arrAvgWeight, lenArrAvg);
     avgIndex := 0;
 
@@ -225,7 +227,6 @@ begin
     log.Info('Init chart');
     LiveChartInit();
     ShiftChartInit();
-
   end
   else
   begin
@@ -319,7 +320,11 @@ begin
     shiftID    := curConfig.shiftId;
     resourceID := curWeightData.curIDResurce;
 
-    log.Trace('ShiftID/ResurceID '+ IntToStr(shiftID + 1) + '/'+ IntToStr(resourceID) + '. Weight count = ' + FloatToStr(weight));
+    log.Trace(
+        'ShiftID/ResurceID '+ IntToStr(shiftID + 1) +
+        '/'+ IntToStr(resourceID) +
+        '. Weight = ' + FloatToStr(weight)
+        );
 
     curWeightData.weight[shiftID, 0] := curWeightData.weight[shiftID, 0] + weight;
     curWeightData.weight[shiftID, resourceID] := curWeightData.weight[shiftID, resourceID] + weight;
@@ -329,13 +334,17 @@ begin
 
     // avg
     arrAvgWeight[avgIndex]:= weight;
-    if avgIndex < Length(arrAvgWeight) then
-        inc(avgIndex);
   end
   else
   begin
     MainForm.LiveChartAdd(0);
+    //avg
+    arrAvgWeight[avgIndex]:= 0;
   end;
+
+  // avg index
+  if avgIndex < Length(arrAvgWeight) then
+        inc(avgIndex);
 
 end;
 
@@ -396,6 +405,21 @@ begin
 
   chtSheft.BottomAxis.Maximum := AMax;
   chtSheft.BottomAxis.Minimum := aMin;
+
+  // Load Data
+
+  if checkCurrentShiftFile(FILE_CHART_SHIFT_DATA, curConfig.shiftDate, curConfig.shiftId) then
+    begin
+      LoadPointToChart(FILE_CHART_SHIFT_DATA, chtSheft.Series[0]);
+    end
+  else
+    begin
+      if FileExists(FILE_CHART_SHIFT_DATA) then
+        if DeleteFile(FILE_CHART_SHIFT_DATA) then
+          log.Info('Data Chart Shift cleared (file delete). File: ' + FILE_CHART_SHIFT_DATA)
+        else
+          log.Error('Data Chart Shift file not delete. File: ' + FILE_CHART_SHIFT_DATA);
+    end;
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
@@ -404,6 +428,8 @@ var
   i: integer;
   avg: Double;
 begin
+  DataWeight.Save(curConfig.shiftDate, curWeightData);
+
   DecodeDateTime(Now, Y, M, D, H, Min, Sec, MilSec);
 
   if Min = 0 then
@@ -432,11 +458,18 @@ begin
     chtSheft.Series[0].AddXY(Now, avg);
     avgIndex := 0;
 
-    
-    log.Trace('Add weight to chart Shift.');
+    if AddPointChartToFile(
+                        FILE_CHART_SHIFT_DATA,
+                        Now,
+                        avg,
+                        curConfig.shiftDate,
+                        curConfig.shiftId)
+    then
+      log.Trace('Add weight to chart Shift.')
+    else
+      log.Error('Not save data chart shift to file.');
   end;
 
-  DataWeight.Save(curConfig.shiftDate, curWeightData);
 end;
 
 procedure TMainForm.lblResourceNameDblClick(Sender: TObject);

@@ -8,7 +8,8 @@ uses
   UChangeResource in 'UChangeResource.pas' {FormChangeResource},
   UReport in 'UReport.pas' {FormReport},
   USetting in 'USetting.pas' {FormSetting},
-  UKeyValue in 'UKeyValue.pas';
+  UKeyValue in 'UKeyValue.pas',
+  UCharHelp in 'UCharHelp.pas';
 
 {$R *.res}
 
