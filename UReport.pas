@@ -30,6 +30,11 @@ implementation
 
 {$R *.dfm}
 
+uses
+  Math;
+
+const
+ WEIGHT_UNITS = 0.001; // Тонны
 
 procedure TFormReport.btnCreateReportClick(Sender: TObject);
 begin
@@ -59,25 +64,25 @@ begin
     Value := curConfig.weightNames[frxUserDataSet.RecNo];
 
   if CompareText(VarName, 'resshift1') = 0 then
-    Value := ReportWeightData.weight[0,frxUserDataSet.RecNo+1] * ReportWeightData.factor;
+    Value := RoundTo(ReportWeightData.weight[0,frxUserDataSet.RecNo+1] * ReportWeightData.factor * WEIGHT_UNITS, -1);
 
   if CompareText(VarName, 'resshift2') = 0 then
-    Value := ReportWeightData.weight[1,frxUserDataSet.RecNo+1] * ReportWeightData.factor;
+    Value := RoundTo(ReportWeightData.weight[1,frxUserDataSet.RecNo+1] * ReportWeightData.factor * WEIGHT_UNITS, -1);
 
   if CompareText(VarName, 'resshift') = 0 then
-    Value := (
+    Value := RoundTo((
                 ReportWeightData.weight[0, frxUserDataSet.RecNo+1] +
                 ReportWeightData.weight[1, frxUserDataSet.RecNo+1]
-              ) * ReportWeightData.factor;
+              ) * ReportWeightData.factor * WEIGHT_UNITS, -1);
 
   if CompareText(VarName, 'resultshift1') = 0 then
-    Value := ReportWeightData.weight[0, 0] * ReportWeightData.factor;
+    Value := RoundTo(ReportWeightData.weight[0, 0] * ReportWeightData.factor * WEIGHT_UNITS, -1);
 
   if CompareText(VarName, 'resultshift2') = 0 then
-    Value := ReportWeightData.weight[1, 0] * ReportWeightData.factor;
+    Value := RoundTo(ReportWeightData.weight[1, 0] * ReportWeightData.factor * WEIGHT_UNITS, -1);
 
   if CompareText(VarName, 'resultshift') = 0 then
-    Value := (ReportWeightData.weight[0, 0] + ReportWeightData.weight[1, 0]) * ReportWeightData.factor;
+    Value := RoundTo((ReportWeightData.weight[0, 0] + ReportWeightData.weight[1, 0]) * ReportWeightData.factor * WEIGHT_UNITS, -1);
 end;
 
 procedure TFormReport.FormShow(Sender: TObject);

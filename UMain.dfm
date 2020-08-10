@@ -599,9 +599,10 @@ object MainForm: TMainForm
   object OpcSimpleClient: TOpcSimpleClient
     Groups = <
       item
+        Name = 'ves'
         LocaleID = 2048
-        UpdateRate = 0
-        Active = True
+        UpdateRate = 50
+        Active = False
         Items.Strings = (
           'shm2010.in.status'
           'shm2010.in.weight')
@@ -620,7 +621,7 @@ object MainForm: TMainForm
     Left = 579
     Top = 66
     Bitmap = {
-      494C010108007000540010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010108007000640010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

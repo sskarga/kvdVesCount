@@ -2,6 +2,8 @@ program VesCoun;
 
 uses
   Forms,
+  Windows,
+  Dialogs,
   UMain in 'UMain.pas' {MainForm},
   UWeight in 'UWeight.pas',
   UConfig in 'UConfig.pas',
@@ -13,7 +15,19 @@ uses
 
 {$R *.res}
 
+var
+ H: THandle;
+
 begin
+   // Запрет на запуск нескольких копий
+  H := CreateMutex(nil, True, 'Ves2342');
+  if GetLastError = ERROR_ALREADY_EXISTS then
+  begin
+    showmessage('Программа уже запущена!');
+    Exit;
+  end;
+
+
   Application.Initialize;
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TFormChangeResource, FormChangeResource);

@@ -286,7 +286,7 @@ object FormReport: TFormReport
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44011.423376909720000000
-    ReportOptions.LastChange = 44012.625227997680000000
+    ReportOptions.LastChange = 44046.390953287040000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -453,7 +453,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 30.236240000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -472,7 +473,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 30.236240000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -491,7 +493,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 30.236240000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -559,7 +562,7 @@ object FormReport: TFormReport
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haCenter
           Memo.UTF8 = (
-            #1056#1038#1056#1112#1056#181#1056#1029#1056#176' 1, '#1056#1108#1056#1110)
+            #1056#1038#1056#1112#1056#181#1056#1029#1056#176' 1, '#1057#8218'.')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -578,7 +581,7 @@ object FormReport: TFormReport
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haCenter
           Memo.UTF8 = (
-            #1056#1038#1056#1112#1056#181#1056#1029#1056#176' 2, '#1056#1108#1056#1110)
+            #1056#1038#1056#1112#1056#181#1056#1029#1056#176' 2, '#1057#8218'.')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -597,7 +600,7 @@ object FormReport: TFormReport
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haCenter
           Memo.UTF8 = (
-            #1056#8217#1057#1027#1056#181#1056#1110#1056#1109', '#1056#1108#1056#1110)
+            #1056#8217#1057#1027#1056#181#1056#1110#1056#1109', '#1057#8218'.')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -611,7 +614,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 26.456710000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -629,7 +633,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 26.456710000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -647,7 +652,8 @@ object FormReport: TFormReport
           Width = 98.267780000000000000
           Height = 26.456710000000000000
           ShowHint = False
-          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.ThousandSeparator = ' '
+          DisplayFormat.FormatStr = '%2.1n'
           DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -672,7 +678,7 @@ object FormReport: TFormReport
           Font.Style = [fsBold]
           HAlign = haCenter
           Memo.UTF8 = (
-            #1056#152#1057#8218#1056#1109#1056#1110#1056#1109', '#1056#1108#1056#1110)
+            #1056#152#1057#8218#1056#1109#1056#1110#1056#1109', '#1057#8218'.')
           ParentFont = False
           VAlign = vaCenter
         end

@@ -99,8 +99,8 @@ const
   CHARTLIVE_COUNT_POINT = 250;  // Количество отображаемых точек на графике live
   CHARTSHIFT_STEP_MINUT = 5;  // Шаг отображения данных в минутах
   // Controller state
-  CONTROLLER_ALARM_TENZO = 0;
-  CONTROLLER_WAIT = 1;
+  CONTROLLER_ALARM_TENZO = 1;
+  CONTROLLER_WAIT = 0;
   CONTROLLER_WORK = 2;
 
   // FileName Chart Shift Data
@@ -219,11 +219,15 @@ begin
 
     OpcSimpleClient.ProgID := curConfig.ServerProgId;
     OpcSimpleClient.Groups.Groups[0].Items.Clear;
+
     idWeight := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagWeight);
     idStatus := OpcSimpleClient.Groups.Groups[0].Items.add(curConfig.OPCTagStatus);
     OpcSimpleClient.Groups.Groups[0].UpdateRate := curConfig.OPCUpdateRate;
-    OpcSimpleClient.Connect;
 
+    OpcSimpleClient.Connect;
+    Sleep(500);
+    OpcSimpleClient.Groups.Groups[0].Active := True;
+    
     log.Info('Init chart');
     LiveChartInit();
     ShiftChartInit();
@@ -239,6 +243,7 @@ end;
 
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
+  OpcSimpleClient.Groups.Groups[0].Active := False;
   OpcSimpleClient.Disconnect;
   DataWeight.Save(curConfig.shiftDate, curWeightData);
   log.Info('------------------------ STOP -------------------------');
@@ -538,8 +543,7 @@ begin
   if FormSetting.ShowModal = mrYes then
   begin
     WeightReset := 0;
-    DataWeight.Save(curConfig.shiftDate, curWeightData);
-    if Config.Save(curConfig) then
+    if Config.Save(curConfig) and DataWeight.Save(curConfig.shiftDate, curWeightData) then
     begin
       log.Info('Config save.');
       MessageDlg('Конфигурация сохранена.' + #13#10 +

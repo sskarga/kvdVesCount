@@ -16,7 +16,6 @@ type
     btnSave: TBitBtn;
     BitBtnCancel: TBitBtn;
     GroupBox1: TGroupBox;
-    edtFactor: TMaskEdit;
     lbl1: TLabel;
     lbl2: TLabel;
     edtCalcInput: TEdit;
@@ -55,6 +54,7 @@ type
     edtShift1End: TEdit;
     edtShift2Begin: TEdit;
     edtShift2End: TEdit;
+    edtFactor: TEdit;
     procedure edtFloatKeyPress(Sender: TObject; var Key: Char);
     procedure edtIntKeyPress(Sender: TObject; var Key: Char);
     procedure btnCalcClick(Sender: TObject);
@@ -242,6 +242,8 @@ var
 begin
   PageControl.ActivePageIndex := 0;
   curConfig.weightFactor:= StrToFloat(edtFactor.Text);
+  curWeightData.factor:= curConfig.weightFactor;
+
   curConfig.weightPassageTime := StrToFloat(edtPassageTime.Text);
 
   curConfig.ServerProgId := edtIdOpc.Text;

@@ -58,7 +58,7 @@ object FormSetting: TFormSetting
     Top = 0
     Width = 478
     Height = 361
-    ActivePage = tsResource
+    ActivePage = tsFactor
     Align = alTop
     MultiLine = True
     TabOrder = 0
@@ -90,7 +90,7 @@ object FormSetting: TFormSetting
         TabOrder = 0
         object lbl1: TLabel
           Left = 89
-          Top = 40
+          Top = 44
           Width = 70
           Height = 13
           Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090
@@ -127,22 +127,6 @@ object FormSetting: TFormSetting
           Font.Style = []
           ParentFont = False
         end
-        object edtFactor: TMaskEdit
-          Left = 180
-          Top = 36
-          Width = 118
-          Height = 21
-          EditMask = '0,999;1;0'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          MaxLength = 5
-          ParentFont = False
-          TabOrder = 0
-          Text = ' ,   '
-        end
         object edtCalcInput: TEdit
           Left = 180
           Top = 80
@@ -168,6 +152,15 @@ object FormSetting: TFormSetting
           Width = 121
           Height = 21
           TabOrder = 2
+          Text = '1'
+          OnKeyPress = edtFloatKeyPress
+        end
+        object edtFactor: TEdit
+          Left = 180
+          Top = 40
+          Width = 121
+          Height = 21
+          TabOrder = 0
           Text = '1'
           OnKeyPress = edtFloatKeyPress
         end
