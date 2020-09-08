@@ -22,6 +22,8 @@ type
     weight: array of array of Double;  // Массив весов [IDСмена - 1, IDРесурс], [IDСмена - 1, 0] - Вес за смену
   end;
 
+procedure DataWeightReset(dw: RDataWeight);
+
 // конфигурация
 type
   RConfig = record
@@ -251,6 +253,20 @@ begin
 
 end;
 
+
+procedure DataWeightReset(dw: RDataWeight);
+var
+  x, y: Integer;
+  xl, yl: Integer;
+begin
+  xl := Length(dw.weight) - 1;
+  yl := Length(dw.weight[0]) - 1;
+  for x := 0 to xl do
+    for y := 0 to yl do
+      dw.weight[x,y] := 0;
+end;
+
+
 function changeShift(var conf: RConfig): Boolean;
 var
   i : Integer;
@@ -267,25 +283,24 @@ begin
   for i:= 0 to Length(conf.workShifts) - 1 do
   begin
 
-    if (conf.workShifts[i].startHour < conf.workShifts[i].endHour) then
+    if (conf.workShifts[i].startHour <= conf.workShifts[i].endHour) then
     begin
+      // В пределах одного дня - даты
       if (H >= conf.workShifts[i].startHour) and (H < conf.workShifts[i].endHour) then
       begin
-        shiftDate := EncodeDateTime(Y, M, D, 0, 0, 0, 0);
+        shiftDate := Today;
         find := True;
       end;
     end
     else
     begin
-      if ( conf.workShifts[i].startHour <= 23 ) and (conf.workShifts[i].endHour >= 0 ) then
+      if ( H >= conf.workShifts[i].startHour ) then
       begin
+        // Возможен переход смены, "вчерашняя дата"
         if H < conf.workShifts[i].endHour then
-        begin
-          DecodeDateTime(Yesterday, Y, M, D, H, Min, Sec, MilSec);
-          shiftDate := EncodeDateTime(Y, M, D, 0, 0, 0, 0);
-        end
+          shiftDate := Yesterday
         else
-            shiftDate := EncodeDateTime(Y, M, D, 0, 0, 0, 0);
+          shiftDate := Today;
             
         find := True;
       end;

@@ -23,7 +23,6 @@ type
     lbl4: TLabel;
     btnCalc: TBitBtn;
     GroupBox2: TGroupBox;
-    edtPassageTime: TMaskEdit;
     lbl5: TLabel;
     Label1: TLabel;
     edtIdOpc: TEdit;
@@ -55,6 +54,7 @@ type
     edtShift2Begin: TEdit;
     edtShift2End: TEdit;
     edtFactor: TEdit;
+    edtPassageTime: TEdit;
     procedure edtFloatKeyPress(Sender: TObject; var Key: Char);
     procedure edtIntKeyPress(Sender: TObject; var Key: Char);
     procedure btnCalcClick(Sender: TObject);

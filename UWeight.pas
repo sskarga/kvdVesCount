@@ -70,14 +70,17 @@ begin
     if (weight > 0) and (duration < (Self._period * 1.5)) then
     begin
       try
+        {
+        // Коррекция погрешности измерений
         duration_err := duration - Round(Self._period);
         if duration_err > 0 then
           cor_weight := RoundTo( weight/(duration/duration_err), -2)
         else
           cor_weight := 0;
-
+        }
         wrLock.WaitToWrite;
-        Self._weight := RoundTo(weight + cor_weight, -2);
+        //Self._weight := RoundTo(weight + cor_weight, -2);
+        Self._weight := RoundTo(weight, -2);
         weightCount := Self._weight;
         wrLock.Done;
         Self.callBackEventChange(weightCount);

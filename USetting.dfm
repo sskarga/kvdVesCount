@@ -58,7 +58,7 @@ object FormSetting: TFormSetting
     Top = 0
     Width = 478
     Height = 361
-    ActivePage = tsFactor
+    ActivePage = tsResource
     Align = alTop
     MultiLine = True
     TabOrder = 0
@@ -175,7 +175,7 @@ object FormSetting: TFormSetting
         TabOrder = 1
         object lbl5: TLabel
           Left = 25
-          Top = 40
+          Top = 45
           Width = 207
           Height = 13
           Caption = #1055#1077#1088#1080#1086#1076' '#1085#1072#1093#1086#1078#1076#1077#1085#1080#1077' '#1089#1084#1077#1089#1080' '#1085#1072' '#1083#1077#1085#1090#1077', '#1089#1077#1082
@@ -188,10 +188,10 @@ object FormSetting: TFormSetting
         end
         object Label1: TLabel
           Left = 376
-          Top = 40
+          Top = 45
           Width = 50
           Height = 13
-          Caption = '(7,35 '#1089#1077#1082')'
+          Caption = '(7,40 '#1089#1077#1082')'
         end
         object Label6: TLabel
           Left = 16
@@ -209,21 +209,14 @@ object FormSetting: TFormSetting
           Layout = tlCenter
           WordWrap = True
         end
-        object edtPassageTime: TMaskEdit
-          Left = 244
-          Top = 36
-          Width = 118
+        object edtPassageTime: TEdit
+          Left = 240
+          Top = 41
+          Width = 121
           Height = 21
-          EditMask = '0,00;1;0'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          MaxLength = 4
-          ParentFont = False
           TabOrder = 0
-          Text = ' ,  '
+          Text = '7,40'
+          OnKeyPress = edtFloatKeyPress
         end
       end
     end
@@ -417,11 +410,13 @@ object FormSetting: TFormSetting
       ImageIndex = 3
       object Label3: TLabel
         Left = 8
-        Top = 312
-        Width = 442
-        Height = 16
+        Top = 296
+        Width = 448
+        Height = 32
         Alignment = taCenter
-        Caption = #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1087#1086#1089#1083#1077' '#1087#1077#1088#1077#1079#1072#1087#1091#1089#1082#1072' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        Caption = 
+          #1048#1079#1084#1077#1085#1077#1085#1080#1103' '#1074#1089#1090#1091#1087#1103#1090' '#1074' '#1089#1080#1083#1091' '#1090#1086#1083#1100#1082#1086' '#1074' '#1085#1086#1074#1086#1081' 1-'#1081' '#1089#1084#1077#1085#1077' '#1080#1083#1080' '#1091#1076#1072#1083#1077#1085#1080#1103' '#1086 +
+          #1090#1095#1077#1090#1072' '#1079#1072' '#1090#1077#1082#1091#1097#1091#1102' '#1089#1084#1077#1085#1091
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clRed
         Font.Height = -13

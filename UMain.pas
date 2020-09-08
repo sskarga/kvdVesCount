@@ -439,11 +439,15 @@ begin
 
   if Min = 0 then
   begin
+    log.Trace('Check change shift.');
     if changeShift(curConfig) then
     begin
-      log.Info('--- New shift ID = '+ IntToStr(curConfig.shiftId) + ' ---');
-      ShiftChartInit();
+      log.Info('--- New shift ID = '+ IntToStr(curConfig.shiftId+1) +
+               ' Date shift = ' + DateToStr(curConfig.shiftDate) +' ---');
+      if curConfig.shiftId = 0 then DataWeightReset(curWeightData);
       WeightReset:= 0;
+      UpdateViewWeight;
+      ShiftChartInit();
     end;
   end;
 
