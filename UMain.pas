@@ -204,6 +204,7 @@ begin
     SetLength(arrAvgWeight, lenArrAvg);
     avgIndex := 0;
 
+    //DataWeightReset(curWeightData);
     log.Info('Load data weight');
     DataWeight := TXMLDataWeight.Create();
     DataWeight.Load(curConfig.shiftDate, curWeightData);
